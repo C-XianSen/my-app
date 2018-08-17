@@ -8,10 +8,10 @@
         <div class="grid">
             <my-ul>
                 <my-li v-for="(grid,index) in grids" :key="index">
-                    <a href="">
+                    <router-link :to="grid.router">
                         <span :class="grid.className"></span>
                         <div>{{grid.title}}</div>
-                    </a>
+                    </router-link>
                 </my-li>
             </my-ul>
         </div>
@@ -24,12 +24,12 @@ export default {
     return {
       imgs: [],
       grids: [
-        {className: 'cms-news', title: '新闻资讯'},
-        {className: 'cms-photo', title: '图文分享'},
-        {className: 'cms-show', title: '商品展示'},
-        {className: 'cms-mess', title: '留言反馈'},
-        {className: 'cms-search', title: '搜索资讯'},
-        {className: 'cms-link', title: '联系我们'}
+        {className: 'cms-news', title: '新闻资讯', router: {name: 'news.list'}},
+        {className: 'cms-photo', title: '图文分享', router: {name: 'photo.list', params: {categoryId: 0}}},
+        {className: 'cms-show', title: '商品展示', router: {name: 'news.list'}},
+        {className: 'cms-mess', title: '留言反馈', router: {name: 'news.list'}},
+        {className: 'cms-search', title: '搜索资讯', router: {name: 'news.list'}},
+        {className: 'cms-link', title: '联系我们', router: {name: 'news.list'}}
       ]
     }
   },
