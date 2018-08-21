@@ -1,6 +1,6 @@
 <template>
     <div class="cms-s-header">
-        <h1 @click="goback">&nbsp;<</h1>
+        <h1 @click="goback">&nbsp;<i></i></h1>
         <h1 class="page-title">{{title}}</h1>
     </div>
 </template>
@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style scoped>
+
 h1 {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -30,5 +31,12 @@ h1 {
 }
 .page-title {
     margin-left: 25%;
+}
+i {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    background: url(../../assets/img/icon-返回.png) round;
+    vertical-align: middle;
 }
 </style>

@@ -9,10 +9,10 @@
                     </div>
                 </li>
                 <li class="txt-comment">
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <textarea v-model="newComment"></textarea>
                 </li>
                 <li>
-                    <mt-button size="large" type="primary">发表评论</mt-button>
+                    <mt-button size="large" type="primary" @click="sendMsg">发表评论</mt-button>
                 </li>
                 <li class="photo-comment">
                     <div>
@@ -38,7 +38,8 @@ export default {
   data () {
     return {
       page: 1,
-      msgs: []
+      msgs: [],
+      newComment: ''
     }
   },
   created () {
@@ -65,12 +66,24 @@ export default {
           }
           if (page) {
             this.msgs = this.msgs.concat(res.data.message)
-          } else {  
+          } else {
             this.msgs = res.data.message
           }
           this.page++
         })
         .catch(err => console.log('评论获取失败', err))
+    },
+    sendMsg () {
+      if (this.newComment.trim() === '') {
+        return this.$toast('评论信息不能为空!')
+      }
+      this.$axios.post('postcomment/' + this.cid, 'content=' + this.newComment)
+        .then(res => {
+          this.newComment = ''
+          this.page = 1
+          this.loadMore()
+        })
+        .catch(err => console.log('发表评论失败', err))
     }
   }
 }
@@ -97,6 +110,7 @@ export default {
 .txt-comment textarea {
     margin-bottom: 5px;
     width: 100%;
+    box-sizing: border-box;
 }
 .comment-list li {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);

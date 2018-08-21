@@ -73,13 +73,4 @@ ul {
 .photo-desc p {
     font-size: 18px;
 }
-.cms-s-header {
-    background-color: #f7f7f7;
-}
-.tmpl h1 {
-    display: inline-block;
-}
-.page-title {
-    margin-left: 25%;
-}
 </style>
