@@ -46,6 +46,9 @@ export default {
 </script>
 <style scoped>
 /* 九宫格 */
+img {
+    width: 100%;
+}
 .grid li span{
     height: 50px;
     width: 50px;

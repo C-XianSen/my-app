@@ -23,7 +23,7 @@
             </ul>
             <ul class="comment-list">
                 <li v-for="(msg, index) in msgs" :key="index">
-                    {{msg.user_name}}:{{msg.content}} {{msg.add_time | relativeTime}}
+                    {{msg.user_name}}：{{msg.content}} {{msg.add_time | relativeTime}}
                 </li>
             </ul>
             <mt-button type="danger" size="large" plain @click="loadMore">加载更多{{page}}</mt-button>
@@ -34,7 +34,6 @@
 <script>
 export default {
   name: 'comment',
-  props: ['cid'],
   data () {
     return {
       page: 1,
@@ -42,6 +41,7 @@ export default {
       newComment: ''
     }
   },
+  props: ['cid'],
   created () {
     this.page = this.$route.query.page || '1'
     this.loadMore()
@@ -59,15 +59,17 @@ export default {
     //     .catch(err => console.log('评论获取失败', err))
     // },
     loadMore (page) {
-      this.$axios.get(`getcomments/${this.cid}?pageindex = ${this.page}`)
+      this.$axios.get(`getcomments/${this.cid}?pageindex=${this.page}`)
         .then(res => {
           if (res.data.message.length === 0) {
             this.$toast('没有评论了')
           }
           if (page) {
             this.msgs = this.msgs.concat(res.data.message)
+            console.log(this.msgs)
           } else {
             this.msgs = res.data.message
+            console.log(this.msgs)
           }
           this.page++
         })

@@ -16,7 +16,7 @@
                         <p>
                             <span>{{img.title}}</span>
                             <br>
-                            <span>{{img.zhaiyao}}</span>
+                            <span>{{img.zhaiyao | convertStr(45)}}</span>
                         </p>
                     </router-link>
                 </li>
@@ -108,13 +108,14 @@ export default {
 .photo-list p {
     position: absolute;
     bottom: 0px;
-    color: white;
+    color: rgb(212, 201, 201);
     background-color: rgba(0, 0, 0, 0.3);
     margin-bottom: 0px;
 }
 .photo-list p span:nth-child(1) {
     font-size: 16px;
     font-weight: bold;
+    color: white
 }
 /* 图片懒加载样式 */
 image[lazy=loading] {

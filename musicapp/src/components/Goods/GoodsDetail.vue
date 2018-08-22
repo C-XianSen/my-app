@@ -16,9 +16,10 @@
                     销售价: <span>￥{{goodsInfo.sell_price}}</span>
                 </li>
                 <li class="number-li">
-                    <span>-</span>
-                    <span>1</span>
-                    <span>+</span>
+                    购买数量：
+                    <span @click="substract">-</span>
+                    <span>{{pickNum}}</span>
+                    <span @click="add">+</span>
                 </li>
                 <li>
                     <mt-button type="primary">立即购买</mt-button>
@@ -40,10 +41,10 @@
         <div class="product-info">
             <ul>
                 <li>
-                    <mt-button type="primary" size="large" plain>图文介绍</mt-button>
+                    <mt-button @click="showPhotoInfo" type="primary" size="large" plain>图文介绍</mt-button>
                 </li>
                 <li>
-                    <mt-button type="danger" size="large" plain>商品评论</mt-button>
+                    <mt-button @click="goodsComment" type="danger" size="large" plain>商品评论</mt-button>
                 </li>
             </ul>
         </div>
@@ -51,19 +52,52 @@
 </template>
 
 <script>
+import EventBus from '../../EventBus.js'
+import GoodsTools from '../../GoodsTools.js'
 export default {
   data () {
     return {
       isExist: false,
-      goodsInfo: {}
+      goodsInfo: {},
+      pickNum: 1
     }
   },
   methods: {
+    substract () {
+      if (this.pickNum <= 1) return
+      this.pickNum--
+    },
+    add () {
+      if (this.goodsInfo.stock_quantity <= this.pickNum) return
+      this.pickNum++
+    },
     innsetBall () {
       this.isExist = true
     },
     afterEnter () {
       this.isExist = false
+      EventBus.$emit('addShopcart', this.pickNum)
+      // 添加到本地存储
+      GoodsTools.add({
+          id: this.goodsInfo.id,
+          num: this.pickNum
+      })
+    },
+    showPhotoInfo () {
+      this.$router.push({
+        name: 'photo.info',
+        query: {
+          id: this.$route.params.id
+        }
+      })
+    },
+    goodsComment () {
+      this.$router.push({
+        name: 'goods.comment',
+        query: {
+          id: this.$route.params.id
+        }
+      })
     }
   },
   created () {
@@ -79,7 +113,10 @@ export default {
 
 <style scoped>
 .ball-enter-active {
-    animation: bounce-in 1s;
+    animation: bounce-in 0.5s;
+}
+.ball-leave {
+    opacity: 0;
 }
 @keyframes bounce-in {
     0% {
@@ -104,7 +141,6 @@ export default {
 }
 .swiper img {
     height: 100%;
-    width: auto;
 }
 .outer-swiper,
 .product-desc,

@@ -13,7 +13,8 @@
       </mt-tab-item>
       <mt-tab-item id="list">
         <img @click="changeHash" slot="icon" src="./assets/img/icon-列表.png">
-        列表
+        购物车
+        <mt-badge type="error" szie="small">{{num}}</mt-badge>
       </mt-tab-item>
       <mt-tab-item id="search">
         <img @click="changeHash" slot="icon" src="./assets/img/icon-搜索.png">
@@ -24,10 +25,13 @@
 </template>
 
 <script>
+import EventBus from './EventBus.js'
+import GoodsTools from './GoodsTools.js'
 export default {
   data () {
     return {
-      selected: ''
+      selected: '',
+      num: 0
     }
   },
   methods: {
@@ -38,6 +42,15 @@ export default {
         })
       })
     }
+  },
+  created () {
+    this.num = GoodsTools.getTotalCount()
+
+    EventBus.$on('addShopcart', data => {
+      // console.log(data)
+      // console.log(this)
+      this.num += data
+    })
   }
   // watch: {
   //   selected (newV, oleV) {

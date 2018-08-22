@@ -14,12 +14,16 @@ import '../node_modules/mint-ui/lib/style.css'
 import './assets/css/global.css'
 // 引入图标css
 import './assets/warnning/iconfont'
+// 时间插件
+import Moment from 'moment'
 // 引入自己的组件
 import MyUl from '../src/components/common/MyUl.vue'
 import MyLi from '../src/components/common/MyLi.vue'
+// 返回和标题
 import NavBar from '../src/components/common/NavBar'
-import Moment from 'moment'
+// 评论
 import Comment from '../src/components/common/Comment'
+// 首页和商品详情轮播
 import MySwipe from '../src/components/common/MySwipe.vue'
 // 注册全局组件
 Vue.component(NavBar.name, NavBar)
@@ -28,10 +32,12 @@ Vue.component(MyLi.name, MyLi)
 Vue.component(Comment.name, Comment)
 Vue.component(MySwipe.name, MySwipe)
 // 定义moment 全局日期过滤器
+// 中文定义
+Moment.locale('zh-cn')
 Vue.filter('convertTime', function (data, formatStr) {
   return Moment(data).format(formatStr)
 })
-
+// 相对时间
 Vue.filter('relativeTime', function (previousTime) {
   return Moment(previousTime).fromNow()
 })
