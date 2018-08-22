@@ -17,20 +17,20 @@ obj.add = function (goods) {
   if (goodslist[goods.id]) {
     goodslist[goods.id] += goods.num
   } else {
-    goodslistp[goods.id] = goods.num
+    goodslist[goods.id] = goods.num
   }
+  // 保存数据
+  this.saveGoods(goodslist)
 }
-
-// 保存数据
-this.saveGoods(goodslist)
 
 // 获取购物车数量总数
 obj.getTotalCount = function () {
   let goodslist = this.getGoodsList()
   let values = Object.values(goodslist)
   let sum = 0
-
-  values.forEach(val => sum += val)
-  return val
+  values.forEach(val => {
+    sum += val
+  })
+  return sum
 }
-export default pbj
+export default obj

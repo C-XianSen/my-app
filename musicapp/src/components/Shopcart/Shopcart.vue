@@ -1,16 +1,20 @@
 <template>
     <div>
+        <nav-bar title="购物车"/>
         <div class="pay-detail">
             <ul>
-                <li class="p-list">
-                    <mt-switch></mt-switch>
-                    <img src="" alt="">
+                <li class="p-list" v-for="goods in shopcart" :key="goods.id">
+                    <mt-switch v-model="goods.isSelected"></mt-switch>
+                    <img :src="goods.thumb_path">
                     <div class="pay-calc">
-                        <span>￥777</span>
-                        <span>-</span>
-                        <span>1</span>
-                        <span>+</span>
-                        <a href="">删除</a>
+                        <p>{{goods.title}}</p>
+                        <div class="calc">
+                            <span>￥{{goods.sell_price}}</span>
+                            <span @click="substract(goods)">-</span>
+                            <span>{{goods.num}}</span>
+                            <span @click="add(goods)">+</span>
+                            <a href="">删除</a>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -28,8 +32,38 @@
 </template>
 
 <script>
+import GoodsTools from '../../GoodsTools.js'
 export default {
-
+  data () {
+    return {
+      shopcart: []
+    }
+  },
+  methods: {
+    add (goods) {
+      console.log()
+      goods.num++
+    },
+    substract (goods) {
+      console.log()
+      goods.num--
+    }
+  },
+  created () {
+    let goodslist = GoodsTools.getGoodsList()
+    let ids = Object.keys(goodslist).join(',')
+    this.$axios.get('goods/getshopcarlist/' + ids)
+      .then(res => {
+        this.shopcart.forEach(goods => {
+          if (goodslist[goods.id]) {
+            goods.num = goodslist[goods.id]
+          }
+          goods.isSelected = true
+        })
+        this.shopcart = res.data.message
+      })
+      .catch(err => console.log('购物车数据异常', err))
+  }
 }
 </script>
 <style>

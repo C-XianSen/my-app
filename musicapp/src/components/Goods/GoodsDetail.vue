@@ -79,8 +79,8 @@ export default {
       EventBus.$emit('addShopcart', this.pickNum)
       // 添加到本地存储
       GoodsTools.add({
-          id: this.goodsInfo.id,
-          num: this.pickNum
+        id: this.goodsInfo.id,
+        num: this.pickNum
       })
     },
     showPhotoInfo () {

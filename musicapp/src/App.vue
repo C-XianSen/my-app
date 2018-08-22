@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <mt-header title="我的App"></mt-header>
-    <router-view class="tmpl"/>
+    <transition name="rv" mode="out-in">
+      <router-view class="tmpl"/>
+    </transition>
     <mt-tabbar v-model="selected">
       <mt-tab-item id="home">
         <img @click="changeHash" slot="icon" src="./assets/img/icon-主页.png">
@@ -11,7 +13,7 @@
         <img @click="changeHash" slot="icon" src="./assets/img/icon-个人.png">
         会员
       </mt-tab-item>
-      <mt-tab-item id="list">
+      <mt-tab-item id="Shopcart">
         <img @click="changeHash" slot="icon" src="./assets/img/icon-列表.png">
         购物车
         <mt-badge type="error" szie="small">{{num}}</mt-badge>
@@ -73,5 +75,13 @@ export default {
 .mint-tabbar{
   position: fixed;
   bottom: 0;
+}
+.rv-enter-active,
+.rv-leave-active {
+  transition: opacity .5s;
+}
+.rv-enter,
+.rv-leave-to {
+  opacity: 0;
 }
 </style>

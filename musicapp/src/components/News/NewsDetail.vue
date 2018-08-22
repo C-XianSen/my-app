@@ -29,7 +29,7 @@ export default {
       })
       .catch(err => console.log(err))
   },
-  //路由确认前，组件渲染前的守卫函数
+  // 路由确认前，组件渲染前的守卫函数
   beforeRouteEnter (to, from, next) {
     let title = ''
     if (from.name == null) {
@@ -44,7 +44,7 @@ export default {
       title = '商品图文介绍'
     }
     next(vm => {
-        vm.title = title // vm就是未来组件的this
+      vm.title = title // vm就是未来组件的this
     })
   }
 }

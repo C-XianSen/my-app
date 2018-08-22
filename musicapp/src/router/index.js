@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home/Home'
-import List from '@/components/List/List'
+// import List from '@/components/List/List'
 import Member from '@/components/Member/Member'
 import Search from '@/components/Search/Search'
 import NewsList from '@/components/News/NewsList.vue'
@@ -11,6 +11,7 @@ import PhotoDetail from '@/components/Photo/PhotoDetail'
 import GoodsList from '@/components/Goods/GoodsList'
 import GoodsDetail from '@/components/Goods/GoodsDetail'
 import GoodsComment from '@/components/Goods/GoodsComment'
+import Shopcart from '@/components/Shopcart/Shopcart'
 
 Vue.use(Router)
 
@@ -26,9 +27,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/list',
-      name: 'list',
-      component: List
+      path: '/Shopcart',
+      name: 'Shopcart',
+      component: Shopcart
     },
     {
       path: '/member',
